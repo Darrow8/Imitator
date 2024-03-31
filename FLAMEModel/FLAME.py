@@ -42,6 +42,7 @@ class FLAME(nn.Module):
             config = dict_to_module(**config)
 
         with open(config.flame_model_path, 'rb') as f:
+            print(f)
             self.flame_model = Struct(**pickle.load(f, encoding='latin1'))
         self.NECK_IDX = 1
         self.batch_size = config.batch_size

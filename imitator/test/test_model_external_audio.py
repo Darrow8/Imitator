@@ -1,3 +1,5 @@
+# import sys
+# sys.path.insert(1, '../utils')
 import torch
 import numpy as np
 import os, datetime, glob
@@ -8,7 +10,7 @@ import pickle
 from omegaconf import OmegaConf
 from argparse import ArgumentParser
 from pytorch_lightning import seed_everything
-from imitator.test.test_model_voca import get_latest_checkpoint
+from test_model_voca import get_latest_checkpoint
 from imitator.utils.render_helper import render_helper
 from imitator.utils.init_from_config import instantiate_from_config
 
@@ -19,17 +21,20 @@ class test_on_audio():
         if os.getenv("WAV2VEC_PATH"):
             wav2vec_path = os.getenv("WAV2VEC_PATH")
         else:
-            wav2vec_model = "projects/dataset/voca_face_former/wav2vec2-base-960h"
+            # wav2vec_model = "projects/dataset/voca_face_former/wav2vec2-base-960h"
+            wav2vec_model = "facebook/wav2vec2-base-960h"
             wav2vec_path = os.path.join(os.getenv('HOME'), wav2vec_model)
-        self.processor = Wav2Vec2Processor.from_pretrained(wav2vec_path)
+        # self.processor = Wav2Vec2Processor.from_pretrained(wav2vec_path)
+        self.processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
         self.rh = render_helper()
 
-        if os.getenv("VOCASET_PATH"):
-            template_file = os.path.join(os.getenv("VOCASET_PATH"), "templates.pkl")
-        else:
-            template_file = os.path.join(os.getenv("HOME"), "projects/dataset/voca_face_former", "templates.pkl")
-        with open(template_file, 'rb') as handle:
-            self.templates = pickle.load(handle, encoding='latin1')
+        # if os.getenv("VOCASET_PATH"):
+        #     template_file = os.path.join(os.getenv("VOCASET_PATH"), "templates.pkl")
+        # else:
+        #     # template_file = os.path.join(os.getenv("HOME"), "projects/dataset/voca_face_former", "templates.pkl")
+        #     template_file = os.path.join(os.getenv("HOME"), "projects/dataset/voca_face_former", "templates.pkl")
+        # with open(template_file, 'rb') as handle:
+        #     self.templates = pickle.load(handle, encoding='latin1')
 
     def read_audio_from_file(self, wav_path):
         speech_array, sampling_rate = librosa.load(wav_path, sr=16000)

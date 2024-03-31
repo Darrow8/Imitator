@@ -69,8 +69,8 @@ def read_data(
         processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
         template_file = os.path.join(os.getenv("HOME"), dataset_root, template_file)
 
-    with open(template_file, 'rb') as fin:
-        templates = pickle.load(fin,encoding='latin1')
+    # with open(template_file, 'rb') as fin:
+    #     templates = pickle.load(fin,encoding='latin1')
 
     subjects_dict = {}
     subjects_dict["train"] = [i for i in train_subjects.split(" ")]

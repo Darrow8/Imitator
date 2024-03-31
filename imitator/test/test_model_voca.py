@@ -1,4 +1,4 @@
-import os, datetime, glob, importlib
+import os, datetime, glob, importlib, sys
 from omegaconf import OmegaConf
 import numpy as np
 import json
@@ -50,7 +50,7 @@ class test_dataset_wise():
         self.one_hot_labels = torch.from_numpy(one_hot_labels).view(1, 8, 8).float()
 
         ### create the losses
-        from imitator.utils.losses import Custom_errors
+        from utils.losses import Custom_errors
         from FLAMEModel.flame_masks import get_flame_mask
         loss_cfg = {}
         loss = nn.MSELoss()
@@ -62,7 +62,7 @@ class test_dataset_wise():
         self.custom_loss = Custom_errors(15069, loss_creterion=loss, loss_dict=loss_cfg)
 
         ### create a render
-        from imitator.utils.render_helper import render_helper
+        from utils.render_helper import render_helper
         self.rh = render_helper()
 
     def run_loop_with_condition_test(self, dataloader, model, condition_id=2):

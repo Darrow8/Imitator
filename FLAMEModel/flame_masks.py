@@ -13,7 +13,7 @@ def get_flame_mask():
     lips, neck, nose, right ear, nose, right ear, right eye region, right eye ball, scalp
 
     """
-    mask_path = "FLAMEModel/model/FLAME_masks.pkl"
+    mask_path = "./FLAME_masks.pkl"
     with open(mask_path, 'rb') as f:
         ss = pickle.load(f, encoding='latin1')
         masks = Struct(**ss)

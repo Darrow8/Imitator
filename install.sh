@@ -4,7 +4,7 @@ env_name=imitator
 conda remove -n $env_name --all
 
 echo "Creating conda environment"
-conda create -n $env_name python=3.8.5
+conda create -n $env_name python=3.11.5
 eval "$(conda shell.bash hook)" # make sure conda works in the shell script
 conda activate $env_name
 if echo $CONDA_PREFIX | grep $env_name
